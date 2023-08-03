@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
 import { useEffect, useState } from "react"
-import { Box, Button, ButtonGroup, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, ButtonGroup, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -11,7 +11,7 @@ function Login() {
 
     // Auth
 
-    const { auth } = useData()
+    const { auth, logInRequest } = useData()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,6 +27,7 @@ function Login() {
     // Code
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
     const initialValues = {
         email: '',
@@ -37,6 +38,13 @@ function Login() {
         setIsSubmitting(true)
         const { email, password } = values
         console.log(email, password);
+        try {
+            await logInRequest(email, password)
+            window.location.reload()
+        } catch (error) {
+            setShowAlert(true)
+            setIsSubmitting(false)
+        }
     }
 
     return(
@@ -87,6 +95,14 @@ function Login() {
                                     >
                                         <span>Login</span>
                                     </LoadingButton>
+
+                                    {showAlert && 
+                                        <Alert variant="outlined" severity="error" sx={{ marginTop: 2 }}>
+                                            Incorrect email or password
+                                        </Alert>
+                                    }
+
+
                                     
                                 </Form>
                             </Formik>

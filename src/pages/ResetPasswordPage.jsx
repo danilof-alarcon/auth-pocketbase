@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
 import { useEffect, useState } from "react"
-import { Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
+import { Box, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -13,6 +13,7 @@ function ResetPassword() {
 
     const { auth } = useData()
     const navigate = useNavigate();
+    const token = useParams()
 
     useEffect(() => {
         if (auth) {

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
 import { useEffect, useState } from "react"
-import { Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
+import { Box, Button, ButtonGroup, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -93,7 +93,14 @@ function Login() {
                         </Paper>
                     </Card>
 
-                    <Button variant="outlined" sx={{ borderRadius: 2}} onClick={() => navigate("/register")}>Register</Button>
+                    <ButtonGroup
+                    disableElevation
+                    variant="text"
+                    aria-label="Disabled elevation buttons"
+                    >
+                        <Button onClick={() => navigate("/register")}>Register</Button>
+                        <Button onClick={() => navigate("/forgot-password")}>Forgot Password</Button>
+                    </ButtonGroup>
 
                 </Grid>
             </Container>

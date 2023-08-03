@@ -98,7 +98,7 @@ function Register() {
                         </Paper>
                     </Card>
 
-                    <Button variant="outlined" sx={{ borderRadius: 2}} onClick={() => navigate("/")}>Login</Button>
+                    <Button variant="text" sx={{ borderRadius: 2}} onClick={() => navigate("/")}>Login</Button>
 
                 </Grid>
             </Container>

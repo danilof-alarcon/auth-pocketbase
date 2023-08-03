@@ -6,21 +6,32 @@ import ForgotPassword from './pages/ForgotPasswordPage'
 import ResetPassword from './pages/ResetPasswordPage'
 import Dashboard from './pages/DashboardPage'
 import NotFound from './pages/NotFoundPage'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { DataContextProvider } from './context/DataContextProvider'
 
 
 function App() {
 
+  const theme = createTheme({
+    //Custom Code Here
+  });
+
   return (
-  <Router>
-    <Routes>
-      <Route path='/' element={<Login />}/>
-      <Route path='/register' element={<Register />}/>
-      <Route path='/forgotpassword' element={<ForgotPassword />}/>
-      <Route path='/resetpassword' element={<ResetPassword />}/>
-      <Route path='/dashboard' element={<Dashboard />}/>
-      <Route path='*' element={<NotFound />}/>
-    </Routes>
-  </Router>
+
+    <DataContextProvider>
+    <ThemeProvider theme={theme}>
+        <Router>
+          <Routes>
+            <Route path='/' element={<Login />}/>
+            <Route path='/register' element={<Register />}/>
+            <Route path='/forgotpassword' element={<ForgotPassword />}/>
+            <Route path='/resetpassword' element={<ResetPassword />}/>
+            <Route path='/dashboard' element={<Dashboard />}/>
+            <Route path='*' element={<NotFound />}/>
+          </Routes>
+        </Router>
+    </ThemeProvider>
+    </DataContextProvider>
   )
 }
 

@@ -64,7 +64,7 @@ function Dashboard() {
                                 </Paper>
                             </Card>
 
-                            <Button onClick={handleLogOut}>Log Out</Button>
+                            <Button onClick={handleLogOut} size="small">Log Out</Button>
                         </>
                         )}
                     </Grid>

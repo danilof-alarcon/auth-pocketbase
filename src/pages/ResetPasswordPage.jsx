@@ -4,14 +4,13 @@ import { useEffect, useState } from "react"
 import { Alert, Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
-import LoadingButton from '@mui/lab/LoadingButton';
 
 
 function ResetPassword() {
 
     // Auth
 
-    const { auth, confirmPasswordRequest } = useData()
+    const { auth, changePasswordRequest } = useData()
     const navigate = useNavigate();
     const token = useParams()
 
@@ -105,7 +104,6 @@ function ResetPassword() {
                                     variant="contained"
                                     size="large"
                                     color="primary"
-                                    loading={isSubmitting}
                                     disabled={isSubmitting}
                                     sx={{
                                         boxShadow: "none",

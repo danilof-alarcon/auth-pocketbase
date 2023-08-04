@@ -1,5 +1,4 @@
-import { Box, Button, Card, Container, Grid, Paper, Typography } from "@mui/material"
-import Logo from "../assets/logoipsum-288.svg"
+import { Box, Button, Container, Grid, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom";
 
 function NotFound() {

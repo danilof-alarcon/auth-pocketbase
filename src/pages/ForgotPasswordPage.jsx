@@ -1,17 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
 import { useEffect, useState } from "react"
-import { Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
-import LoadingButton from '@mui/lab/LoadingButton';
 
 
 function ForgotPassword() {
 
     // Auth
 
-    const { auth } = useData()
+    const { auth, resetPasswordRequest } = useData()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,6 +26,11 @@ function ForgotPassword() {
     // Code
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showAlert, setShowAlert] = useState({
+        value: false,
+        severity: "",
+        message: ""
+    });
 
     const initialValues = {
         email: '',
@@ -35,7 +39,20 @@ function ForgotPassword() {
     const handleSubmit = async(values) => {
         setIsSubmitting(true)
         const { email } = values
-        console.log(email);
+        try {
+            await resetPasswordRequest(email)
+            setShowAlert({
+                value: true,
+                severity: "success",
+                message: "Recovery link sended to your email"
+            })
+        } catch (error) {
+            setShowAlert({
+                value: true,
+                severity: "error",
+                message: "Error on sending email, try again later"
+            })
+        }
     }
 
     return(
@@ -64,13 +81,12 @@ function ForgotPassword() {
                                         <Field as={TextField} type="email" name="email" label="Email" variant="standard" autoComplete="on" fullWidth required />
                                     </FormControl>
 
-                                    <LoadingButton
+                                    <Button
                                     fullWidth
                                     type="submit"
                                     variant="contained"
                                     size="large"
                                     color="primary"
-                                    loading={isSubmitting}
                                     disabled={isSubmitting}
                                     sx={{
                                         boxShadow: "none",
@@ -80,8 +96,14 @@ function ForgotPassword() {
                                         marginTop: 2,
                                     }}
                                     >
-                                        <span>Send</span>
-                                    </LoadingButton>
+                                    {isSubmitting ? "Sended" : "Send"}
+                                    </Button>
+
+                                    {showAlert.value && 
+                                        <Alert variant="outlined" severity={showAlert.severity} sx={{ marginTop: 2 }}>
+                                            {showAlert.message}
+                                        </Alert>
+                                    }
                                     
                                 </Form>
                             </Formik>

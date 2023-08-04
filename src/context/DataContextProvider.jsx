@@ -41,6 +41,15 @@ export const DataContextProvider = ({children}) => {
         pb.authStore.clear();
     }
 
+    const resetPasswordRequest = async(email) => {
+        await pb.collection('users').requestPasswordReset(email);
+    }
+
+    const changePasswordRequest = async(token, password, confirmPassword) => {
+        const response = await pb.collection('users').confirmPasswordReset(token, password, confirmPassword);
+        console.log(response);
+    }
+
     // App Functions
 
     const userDataRequest = async() => {
@@ -51,7 +60,7 @@ export const DataContextProvider = ({children}) => {
     }
 
     return (
-        <DataContex.Provider value={{ auth, userData, logInRequest, registerRequest, userDataRequest, logOutRequest }}>
+        <DataContex.Provider value={{ auth, userData, logInRequest, registerRequest, userDataRequest, logOutRequest, resetPasswordRequest, changePasswordRequest }}>
             {children}
         </DataContex.Provider>
     )

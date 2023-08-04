@@ -12,7 +12,7 @@ function ResetPassword() {
 
     const { auth, changePasswordRequest } = useData()
     const navigate = useNavigate();
-    const token = useParams()
+    const token = useParams().token
 
     useEffect(() => {
         if (auth) {
@@ -44,11 +44,11 @@ function ResetPassword() {
 
         if (password === confirmPassword) {
             try {
-                await changePasswordRequest(token.token, password, confirmPassword)
+                await changePasswordRequest(token, password, confirmPassword)
                 setShowAlert({
                     value: true,
                     severity: "success",
-                    message: "Password recovered, try to log in again"
+                    message: "Password recovered - try to log in again"
                 })
             } catch (error) {
                 setIsSubmitting(false)

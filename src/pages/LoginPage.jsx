@@ -109,6 +109,7 @@ function Login() {
                     <ButtonGroup
                     disableElevation
                     variant="text"
+                    orientation="vertical"
                     aria-label="Disabled elevation buttons"
                     size="small"
                     >

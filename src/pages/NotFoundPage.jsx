@@ -17,7 +17,7 @@ function NotFound() {
                 paddingY={5}
                 minHeight="100vh" >
                     <Typography variant="h1" fontSize={32} fontWeight={600} textAlign={"center"} >Not Found Page</Typography>
-                    <Button variant="outlined" sx={{ borderRadius: 2, marginTop: 3 }} onClick={() => navigate("/")}>Back to Home</Button>
+                    <Button size="small" variant="outlined" sx={{ borderRadius: 2, marginTop: 3 }} onClick={() => navigate("/")}>Back to Home</Button>
 
                 </Grid>
             </Container>

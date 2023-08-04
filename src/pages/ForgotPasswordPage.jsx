@@ -88,7 +88,7 @@ function ForgotPassword() {
                         </Paper>
                     </Card>
 
-                    <Button variant="text" sx={{ borderRadius: 2}} onClick={() => navigate("/")}>Back to Login</Button>
+                    <Button size="small" variant="text" sx={{ borderRadius: 2}} onClick={() => navigate("/")}>Back to Login</Button>
 
                 </Grid>
             </Container>

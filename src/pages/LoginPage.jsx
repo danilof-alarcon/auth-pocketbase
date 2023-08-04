@@ -37,7 +37,6 @@ function Login() {
     const handleSubmit = async(values) => {
         setIsSubmitting(true)
         const { email, password } = values
-        console.log(email, password);
         try {
             await logInRequest(email, password)
             window.location.reload()
@@ -93,7 +92,7 @@ function Login() {
                                         marginTop: 2,
                                     }}
                                     >
-                                        <span>Login</span>
+                                    <span>Login</span>
                                     </LoadingButton>
 
                                     {showAlert && 
@@ -101,8 +100,6 @@ function Login() {
                                             Incorrect email or password
                                         </Alert>
                                     }
-
-
                                     
                                 </Form>
                             </Formik>
@@ -113,6 +110,7 @@ function Login() {
                     disableElevation
                     variant="text"
                     aria-label="Disabled elevation buttons"
+                    size="small"
                     >
                         <Button onClick={() => navigate("/register")}>Register</Button>
                         <Button onClick={() => navigate("/forgot-password")}>Forgot Password</Button>

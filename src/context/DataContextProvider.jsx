@@ -37,13 +37,13 @@ export const DataContextProvider = ({children}) => {
         return (createUser, logUser);
     }
 
-    const LogOutRequest = async() => {
+    const logOutRequest = async() => {
         pb.authStore.clear();
     }
 
     // App Functions
 
-    const UserDataRequest = async() => {
+    const userDataRequest = async() => {
         pb.autoCancellation(false);
 
         const userData = await pb.collection('users').getOne(`${pb.authStore.model.id}`);
@@ -51,7 +51,7 @@ export const DataContextProvider = ({children}) => {
     }
 
     return (
-        <DataContex.Provider value={{ auth, userData, logInRequest, registerRequest, UserDataRequest, LogOutRequest }}>
+        <DataContex.Provider value={{ auth, userData, logInRequest, registerRequest, userDataRequest, logOutRequest }}>
             {children}
         </DataContex.Provider>
     )

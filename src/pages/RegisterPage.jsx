@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
 import { useEffect, useState } from "react"
-import { Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -11,7 +11,7 @@ function Register() {
 
     // Auth
 
-    const { auth } = useData()
+    const { auth, registerRequest } = useData()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,6 +27,7 @@ function Register() {
     // Code
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
     const initialValues = {
         name: '',
@@ -37,7 +38,13 @@ function Register() {
     const handleSubmit = async(values) => {
         setIsSubmitting(true)
         const { name, email, password } = values
-        console.log(name, email, password);
+        try {
+            await registerRequest(name, email, password)
+            window.location.reload()
+        } catch (error) {
+            setShowAlert(true)
+            setIsSubmitting(false)  
+        }
     }
 
     return(
@@ -63,7 +70,7 @@ function Register() {
                                 <Form>
 
                                     <FormControl fullWidth margin="normal" variant="standard">
-                                        <Field as={TextField} type="input" name="name" label="Username" variant="standard" autoComplete="on" fullWidth required />
+                                        <Field as={TextField} type="input" name="name" label="Name" variant="standard" autoComplete="on" fullWidth required />
                                     </FormControl>
 
                                     <FormControl fullWidth margin="normal" variant="standard">
@@ -92,13 +99,19 @@ function Register() {
                                     >
                                         <span>Register</span>
                                     </LoadingButton>
+
+                                    {showAlert && 
+                                        <Alert variant="outlined" severity="error" sx={{ marginTop: 2 }}>
+                                            User already exists
+                                        </Alert>
+                                    }
                                     
                                 </Form>
                             </Formik>
                         </Paper>
                     </Card>
 
-                    <Button variant="text" sx={{ borderRadius: 2}} onClick={() => navigate("/")}>Login</Button>
+                    <Button variant="text" size="small" sx={{ borderRadius: 2}} onClick={() => navigate("/")}>Login</Button>
 
                 </Grid>
             </Container>

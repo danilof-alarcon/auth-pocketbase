@@ -1,19 +1,18 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
 import { useEffect, useState } from "react"
-import { Box, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
-import LoadingButton from '@mui/lab/LoadingButton';
 
 
 function ResetPassword() {
 
     // Auth
 
-    const { auth } = useData()
+    const { auth, changePasswordRequest } = useData()
     const navigate = useNavigate();
-    const token = useParams()
+    const token = useParams().token
 
     useEffect(() => {
         if (auth) {
@@ -28,6 +27,11 @@ function ResetPassword() {
     // Code
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showAlert, setShowAlert] = useState({
+        value: false,
+        severity: "",
+        message: ""
+    });
 
     const initialValues = {
         password: '',
@@ -37,7 +41,31 @@ function ResetPassword() {
     const handleSubmit = async(values) => {
         setIsSubmitting(true)
         const { password, confirmPassword } = values
-        console.log(password, confirmPassword);
+
+        if (password === confirmPassword) {
+            try {
+                await changePasswordRequest(token, password, confirmPassword)
+                setShowAlert({
+                    value: true,
+                    severity: "success",
+                    message: "Password recovered - try to log in again"
+                })
+            } catch (error) {
+                setIsSubmitting(false)
+                setShowAlert({
+                    value: true,
+                    severity: "error",
+                    message: "Error in password recovery"
+                })
+            }
+        } else {
+            setIsSubmitting(false)
+            setShowAlert({
+                value: true,
+                severity: "error",
+                message: "Passwords do not match"
+            })
+        }
     }
 
     return(
@@ -70,13 +98,12 @@ function ResetPassword() {
                                         <Field as={TextField} type="password" name="confirmPassword" label="Confirm Password" variant="standard" autoComplete="on" fullWidth required />
                                     </FormControl>
 
-                                    <LoadingButton
+                                    <Button
                                     fullWidth
                                     type="submit"
                                     variant="contained"
                                     size="large"
                                     color="primary"
-                                    loading={isSubmitting}
                                     disabled={isSubmitting}
                                     sx={{
                                         boxShadow: "none",
@@ -86,8 +113,14 @@ function ResetPassword() {
                                         marginTop: 2,
                                     }}
                                     >
-                                        <span>Reset Password</span>
-                                    </LoadingButton>
+                                    Change Password
+                                    </Button>
+
+                                    {showAlert.value && 
+                                        <Alert variant="outlined" severity={showAlert.severity} sx={{ marginTop: 2 }}>
+                                        {showAlert.message}
+                                        </Alert>
+                                    }
                                     
                                 </Form>
                             </Formik>

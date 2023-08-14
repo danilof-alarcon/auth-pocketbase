@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
 import { useEffect, useState } from "react";
 import { Box, Button, Card, CircularProgress, Container, Grid, Paper, Typography } from "@mui/material";

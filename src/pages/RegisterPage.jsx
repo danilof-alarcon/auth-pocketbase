@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Alert, Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
@@ -9,22 +9,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 function Register() {
 
-    // Auth
-
-    const { auth, registerRequest } = useData()
+    const { registerRequest } = useData()
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (auth) {
-            navigate("/dashboard");
-        }
-    }, [auth, navigate]);
-
-    if (auth) {
-        return null;
-    }
-
-    // Code
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showAlert, setShowAlert] = useState(false);

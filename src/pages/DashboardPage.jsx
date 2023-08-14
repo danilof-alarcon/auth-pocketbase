@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
 import { useEffect, useState } from "react";
 import { Box, Button, Card, CircularProgress, Container, Grid, Paper, Typography } from "@mui/material";
@@ -9,20 +8,7 @@ function Dashboard() {
 
     // Auth
 
-    const { auth, logOutRequest, userDataRequest, userData } = useData()
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!auth) {
-            navigate("/");
-        }
-    }, [auth, navigate]);
-
-    if (!auth) {
-        return null;
-    }
-
-    // Code
+    const { logOutRequest, userDataRequest, userData } = useData()
 
     const [isLoading, setIsLoading] = useState(true);
 

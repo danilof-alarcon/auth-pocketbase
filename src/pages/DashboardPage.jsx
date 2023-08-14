@@ -6,8 +6,6 @@ import Logo from "../assets/logoipsum-288.svg"
 
 function Dashboard() {
 
-    // Auth
-
     const { logOutRequest, userDataRequest, userData } = useData()
 
     const [isLoading, setIsLoading] = useState(true);

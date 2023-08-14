@@ -9,20 +9,7 @@ function Dashboard() {
 
     // Auth
 
-    const { auth, logOutRequest, userDataRequest, userData } = useData()
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!auth) {
-            navigate("/");
-        }
-    }, [auth, navigate]);
-
-    if (!auth) {
-        return null;
-    }
-
-    // Code
+    const { logOutRequest, userDataRequest, userData } = useData()
 
     const [isLoading, setIsLoading] = useState(true);
 

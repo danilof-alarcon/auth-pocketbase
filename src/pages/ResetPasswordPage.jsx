@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useData } from "../context/DataContextProvider"
-import { useEffect, useState } from "react"
 import { Alert, Box, Button, Card, Container, FormControl, Grid, Paper, TextField, Typography } from "@mui/material"
 import { Formik, Form, Field } from 'formik'
 import Logo from "../assets/logoipsum-288.svg"
@@ -8,23 +7,8 @@ import Logo from "../assets/logoipsum-288.svg"
 
 function ResetPassword() {
 
-    // Auth
-
-    const { auth, changePasswordRequest } = useData()
-    const navigate = useNavigate();
+    const { changePasswordRequest } = useData()
     const token = useParams().token
-
-    useEffect(() => {
-        if (auth) {
-            navigate("/dashboard");
-        }
-    }, [auth, navigate]);
-
-    if (auth) {
-        return null;
-    }
-
-    // Code
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showAlert, setShowAlert] = useState({
